@@ -2,6 +2,7 @@ package de.behoerde.kita.antrag.service.rest;
 
 import de.behoerde.kita.antrag.core.verwaltung.Verwaltung;
 import de.behoerde.kita.antrag.core.verwaltung.ausgabedaten.EintragDaten;
+import de.behoerde.kita.antrag.core.verwaltung.eingabedaten.Entscheidung;
 import de.behoerde.kita.antrag.core.verwaltung.eingabedaten.NeuerEintrag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,6 +49,17 @@ public class EintragController {
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody List<EintragDaten> leseEintraege() {
         return verwaltung.leseAlleEintraege();
+    }
+    
+    /**
+     * Updated einen bestimmten Eintrag.
+     *
+     * @return 
+     */
+    @RequestMapping(method = RequestMethod.PATCH, value="/{aktenzeichen}")
+    @ResponseStatus(HttpStatus.OK)
+    public void  patchEintrag(@RequestBody Entscheidung entscheidung, @PathVariable Long aktenzeichen) {
+        verwaltung.patchEintrag(aktenzeichen, entscheidung);
     }
 
 
