@@ -1,3 +1,5 @@
+var kitas = [];
+
 function ladeEintraege() {
     $.ajax({
         type: "GET",
@@ -16,6 +18,33 @@ function ladeEintraege() {
         }
     });
 }
+
+function ladeKitas() {
+    $.ajax({
+        type: "GET",
+        url: "http://prodigy84.pythonanywhere.com/api/kitas",
+        dataType: "json",
+        success: function (data, status, jqXHR) {
+            $('#kitas').empty();
+            
+            for (var i=0; i < data.features.length; i++) {
+            		kitas[i] = [];
+            		kitas[i][0] = data.features[i].attributes.OBJECTID;
+            		kitas[i][1] = data.features[i].attributes.STADTTEIL + ", " + data.features[i].attributes.ADRESSE;
+            	    $('#kita1prio').append($('<option>', {value:kitas[i][0], text:kitas[i][1]}));
+            	    $('#kita2prio').append($('<option>', {value:kitas[i][0], text:kitas[i][1]}));
+            	    $('#kita3prio').append($('<option>', {value:kitas[i][0], text:kitas[i][1]}));
+            	    
+            //console.log(data.features[i].attributes.STADTTEIL + data.features[i].attributes.ADRESSE);
+            }
+
+        },
+        error: function (jqXHR, status) {
+            alert(status);
+        }
+    });
+}
+
 
 function eintragAnzeigen(verfasser, text, datum) {
     var eintragText = document.createTextNode(text);
