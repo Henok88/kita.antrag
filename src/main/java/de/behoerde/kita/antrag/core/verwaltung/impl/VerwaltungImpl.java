@@ -1,5 +1,6 @@
 package de.behoerde.kita.antrag.core.verwaltung.impl;
 
+import de.behoerde.kita.antrag.core.enums.Status;
 import de.behoerde.kita.antrag.core.verwaltung.Verwaltung;
 import de.behoerde.kita.antrag.core.verwaltung.ausgabedaten.EintragDaten;
 import de.behoerde.kita.antrag.core.verwaltung.eingabedaten.NeuerEintrag;
@@ -26,8 +27,22 @@ public class VerwaltungImpl implements Verwaltung {
     @Override
     public EintragDaten neuerEintrag(NeuerEintrag neuerEintrag) {
         Eintrag eintrag = new Eintrag();
-        eintrag.setText(neuerEintrag.getText());
-        eintrag.setVerfasser(neuerEintrag.getVerfasser());
+        eintrag.setNachnameAntragssteller(neuerEintrag.getNachnameAntragssteller());
+        eintrag.setVornameAntragssteller(neuerEintrag.getVornameAntragssteller());
+        eintrag.setEmail(neuerEintrag.getEmail());
+        eintrag.setNachnameKind(neuerEintrag.getNachnameKind());
+        eintrag.setVornameKind(neuerEintrag.getVornameKind());
+        eintrag.setKitaIdEins(neuerEintrag.getKitaIdEins());
+        eintrag.setKitaIdZwei(neuerEintrag.getKitaIdZwei());
+        eintrag.setKitaIdDrei(neuerEintrag.getKitaIdDrei());
+        if (neuerEintrag.getStatus() == null) {
+        	eintrag.setStatus(Status.OFFEN);
+        } else {
+        	eintrag.setStatus(neuerEintrag.getStatus());
+        }
+        
+        eintrag.setAnmerkung(neuerEintrag.getAnmerkung());
+        
         eintrag.setDatum(ZonedDateTime.now(ZoneId.of("Z")));
 
         eintragDao.speichere(eintrag);
@@ -41,6 +56,8 @@ public class VerwaltungImpl implements Verwaltung {
     }
 
     private EintragDaten mappeEintrag(Eintrag eintrag) {
-        return new EintragDaten(eintrag.getVerfasser(), eintrag.getText(), eintrag.getDatum());
+        return new EintragDaten(eintrag.getNachnameAntragssteller(), eintrag.getVornameAntragssteller(), eintrag.getEmail(),
+        		eintrag.getNachnameKind(), eintrag.getVornameKind(), eintrag.getKitaIdEins(), eintrag.getKitaIdZwei(),
+        		eintrag.getKitaIdDrei(), eintrag.getStatus(), eintrag.getAnmerkung(), eintrag.getDatum());        
     }
 }

@@ -32,7 +32,7 @@ public class EintragController {
     @RequestMapping(method=RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public void erstelleEintrag(@RequestBody NeuerEintrag neuerEintrag) {
-        if (neuerEintrag.getVerfasser().isEmpty() || neuerEintrag.getText().isEmpty()) {
+        if (neuerEintrag.getNachnameAntragssteller().isEmpty() || neuerEintrag.getKitaIdEins() == null) {
             throw new IllegalArgumentException("Text und/oder Verfasser leer");
         }
 
