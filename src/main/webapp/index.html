@@ -9,9 +9,17 @@
     <script type="text/javascript" src="resources/js/eintraege.js"></script>
 </head>
 
-<body onload="ladeEintraege()">
+<body onload="ladeEintraege(), ladeKitas()">
 <h1>kita.antrag</h1>
 <br>
+  <select name="Prio 1" id="kita1prio">
+  </select>
+    <select name="Prio 2" id="kita2prio">
+  </select>
+    <select name="Prio 3" id="kita3prio">
+  </select>
+<br>
+
 <div id="eintrag_form">
     <div>
         <input type="text" id="verfasser_input" value="" placeholder="Name">
